@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { publicApi } from '@api';
 
 const GoogleLoginButton = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSuccess = async (credentialResponse) => {
     setIsLoading(true);
@@ -12,7 +13,12 @@ const GoogleLoginButton = () => {
       const res = await publicApi.post('/auth/google-login', {
         token: credentialResponse.credential
       });
-      alert(`Welcome ${res.data.user.name}`);
+
+      // Store user data in localStorage or context if needed
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+
+      // Redirect to dashboard
+      navigate('/dashboard');
     } catch (err) {
       console.error('Login error:', err);
       alert('Login failed');
