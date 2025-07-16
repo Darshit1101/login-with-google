@@ -9,7 +9,7 @@ const GoogleLoginButton = () => {
   const handleSuccess = async (credentialResponse) => {
     setIsLoading(true);
     try {
-      const res = await publicApi.post('/api/auth/google-login', {
+      const res = await publicApi.post('/auth/google-login', {
         token: credentialResponse.credential
       });
       alert(`Welcome ${res.data.user.name}`);
