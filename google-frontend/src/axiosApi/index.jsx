@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL // Dynamically use the API URL from the .env file
+  baseURL: import.meta.env.VITE_BACKEND_URL 
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token'); // Use the token stored in localStorage
+    const token = localStorage.getItem('token'); 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -36,7 +36,7 @@ api.interceptors.response.use(
 
 // For public (no token) requests like login or register
 const publicApi = axios.create({
-  baseURL: process.env.REACT_APP_API_URL
+  baseURL: import.meta.env.VITE_BACKEND_URL
 });
 
 export { api, publicApi };

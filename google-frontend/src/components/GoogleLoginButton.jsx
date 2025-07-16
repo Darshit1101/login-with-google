@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { publicApi } from '@api';
 
 const GoogleLoginButton = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -8,7 +9,7 @@ const GoogleLoginButton = () => {
   const handleSuccess = async (credentialResponse) => {
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/google-login', {
+      const res = await publicApi.post('/api/auth/google-login', {
         token: credentialResponse.credential
       });
       alert(`Welcome ${res.data.user.name}`);
