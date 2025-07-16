@@ -7,10 +7,12 @@ import authRoutes from './routes/authRoutes.js';
 dotenv.config();
 const app = express();
 
+const API_PREFIX = process.env.API_PREFIX || '/api';
+
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
+app.use(`${API_PREFIX}/auth`, authRoutes);
 
 connectDB();
 app.listen(process.env.PORT, () => {

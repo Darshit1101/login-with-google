@@ -9,7 +9,7 @@ export const googleLogin = async (req, res) => {
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID,
+      audience: process.env.GOOGLE_CLIENT_ID
     });
 
     const { sub, email, name, picture } = ticket.getPayload();
